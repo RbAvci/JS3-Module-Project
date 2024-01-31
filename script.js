@@ -8,8 +8,9 @@ function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
   for (const episode of episodeList) {
     const showCard = document.getElementById("show-card").content.cloneNode(true);
-
-    showCard.querySelector("#show-title").textContent = episode.name;
+    const showTitle = showCard.querySelector("#show-title");
+    showTitle.textContent = episode.name;
+    showTitle.setAttribute("href", episode.url);
     showCard.querySelector("#show-episode").textContent = episodeCode(episode.season, episode.number);
     showCard.querySelector("img").src = episode.image.medium;
     showCard.querySelector("#show-summary").innerHTML = episode.summary;
