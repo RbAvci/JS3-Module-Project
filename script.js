@@ -10,12 +10,19 @@ function makePageForEpisodes(episodeList) {
     const showCard = document.getElementById("show-card").content.cloneNode(true);
 
     showCard.querySelector("#show-title").textContent = episode.name;
-    showCard.querySelector("#show-episode").textContent = `${episode.season} - ${episode.number}`;
+    showCard.querySelector("#show-episode").textContent = episodeCode(episode.season, episode.number);
     showCard.querySelector("img").src = episode.image.medium;
     showCard.querySelector("#show-summary").innerHTML = episode.summary;
 
     rootElem.append(showCard);
   }
+}
+
+function episodeCode(season, number) {
+  let s = season < 10 ? `0${season}` : season;
+  let n = number < 10 ? `0${number}` : number;
+  let code = `S${s}E${n}`;
+  return code;
 }
 
 window.onload = setup;
