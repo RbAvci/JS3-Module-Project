@@ -4,6 +4,11 @@ function setup() {
   makePageForEpisodes(allEpisodes);
 }
 
+const state = {
+  episodes: getAllEpisodes(),
+  searchTerm: "",
+}
+
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
   for (const episode of episodeList) {
