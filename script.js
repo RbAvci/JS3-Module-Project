@@ -38,6 +38,7 @@ function episodeCode(season, number) {
   let code = `S${s}E${n}`;
   return code;
 }
+
 const searchResults = (allCards) => {
   const searchInput = document.getElementById("q");
 
@@ -46,15 +47,20 @@ const searchResults = (allCards) => {
   function updateSearchTerm(e) {
     state.searchTerm = searchInput.value.toLowerCase();
     console.log(state.searchTerm);
+    let numberOfEpisodesDisplayed = 0;
     const filteredEpisodes = allCards.forEach(function (episode) {
       if (episode.innerText.toLowerCase().includes(state.searchTerm)) {
         episode.style.display = "block";
+        numberOfEpisodesDisplayed++;
       } else {
         episode.style.display = "none";
       }
+        document.querySelector(
+          "#number-of-filtered-episodes"
+        ).innerHTML = `Displaying ${numberOfEpisodesDisplayed}/${allCards.length} episodes`;
     });
   }
-};
 
+};
 
 window.onload = setup;
