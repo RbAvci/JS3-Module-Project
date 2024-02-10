@@ -7,20 +7,28 @@ function setup() {
 const state = {
   episodes: getAllEpisodes(),
   searchTerm: "",
-}
+};
 
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
   for (const episode of episodeList) {
-    const showCard = document.getElementById("show-card").content.cloneNode(true);
+    // showCard.innerHTML = "";
+    const showCard = document
+      .getElementById("show-card")
+      .content.cloneNode(true);
     const showTitle = showCard.querySelector("#show-title");
     showTitle.textContent = episode.name;
     showTitle.setAttribute("href", episode.url);
-    showCard.querySelector("#show-episode").textContent = episodeCode(episode.season, episode.number);
+    showCard.querySelector("#show-episode").textContent = episodeCode(
+      episode.season,
+      episode.number
+    );
     showCard.querySelector("img").src = episode.image.medium;
     showCard.querySelector("#show-summary").innerHTML = episode.summary;
 
     rootElem.append(showCard);
+    let allCards = [...document.querySelectorAll(".card-temp")];
+    newFunction(allCards);
   }
 }
 
@@ -30,5 +38,23 @@ function episodeCode(season, number) {
   let code = `S${s}E${n}`;
   return code;
 }
+const newFunction = (allCards) => {
+  const searchInput = document.getElementById("q");
+
+  searchInput.addEventListener("input", updateSearchTerm);
+
+  function updateSearchTerm(e) {
+    state.searchTerm = searchInput.value.toLowerCase();
+    console.log(state.searchTerm);
+    const filteredEpisodes = allCards.forEach(function (episode) {
+      if (episode.innerText.toLowerCase().includes(state.searchTerm)) {
+        episode.style.display = "block";
+      } else {
+        episode.style.display = "none";
+      }
+    });
+  }
+};
+
 
 window.onload = setup;
