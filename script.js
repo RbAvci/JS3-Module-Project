@@ -28,7 +28,7 @@ function makePageForEpisodes(episodeList) {
 
     rootElem.append(showCard);
     let allCards = [...document.querySelectorAll(".card-temp")];
-    newFunction(allCards);
+    searchResults(allCards);
   }
 }
 
@@ -38,7 +38,7 @@ function episodeCode(season, number) {
   let code = `S${s}E${n}`;
   return code;
 }
-const newFunction = (allCards) => {
+const searchResults = (allCards) => {
   const searchInput = document.getElementById("q");
 
   searchInput.addEventListener("input", updateSearchTerm);
