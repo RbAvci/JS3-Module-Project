@@ -10,6 +10,13 @@
 </head>
 
 <body>
+  <div>
+    <label for="episodeDropdown">Select Episode:</label>
+    <select id="episodeDropdown"></select>
+  </div>
+  <div><label>
+      <input type="search" id="q" name="q" placeholder="Search term" />
+    </label></div>
   <div id="root">
     <p id="number-of-filtered-episodes"></p>
     <template id="show-card">
@@ -24,9 +31,6 @@
         </section>
       </section>
     </template>
-    <label>
-      <input type="search" id="q" name="q" placeholder="Search term" />
-    </label>
   </div>
 
   <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
@@ -34,7 +38,7 @@
 
   <!-- Loads YOUR javascript code -->
   <script src="script.js"></script>
-  <footer>The data in this website (originally) come from <a href="https://tvmaze.com/" target="_blank">TVMaze.com</a>
+  <footer>The data in this website (originally) come from <a href="https://tvmaze.com/" target="_blank">TVMaze.com </a>
   </footer>
 </body>
 
