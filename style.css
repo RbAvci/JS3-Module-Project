@@ -3,6 +3,12 @@
   grid-template-columns: repeat(3, 1fr);
 }
 
+.filter-box{
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
 .card-temp {
   border-radius: 1rem;
   box-shadow: 0 5px 20px 10px rgba(0, 0, 0, 0.2);

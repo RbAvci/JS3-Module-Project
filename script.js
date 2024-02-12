@@ -1,19 +1,16 @@
-//You can edit ALL of the code here
-function setup() {
-  const allEpisodes = getAllEpisodes();
-  makePageForEpisodes(allEpisodes);
-  populateEpisodeDropdown(allEpisodes);
-}
-
 const state = {
   episodes: getAllEpisodes(),
   searchTerm: "",
 };
 
+function setup() {
+  makePageForEpisodes(state.episodes);
+  populateEpisodeDropdown(state.episodes);
+}
+
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
   for (const episode of episodeList) {
-    // showCard.innerHTML = "";
     const showCard = document
       .getElementById("show-card")
       .content.cloneNode(true);
@@ -51,7 +48,7 @@ const searchResults = (allCards) => {
     state.searchTerm = searchInput.value.toLowerCase();
     console.log(state.searchTerm);
     let numberOfEpisodesDisplayed = 0;
-    const filteredEpisodes = allCards.forEach(function (episode) {
+    allCards.forEach(function (episode) {
       if (episode.innerText.toLowerCase().includes(state.searchTerm)) {
         episode.style.display = "block";
         numberOfEpisodesDisplayed++;
