@@ -43,7 +43,7 @@ function episodeCode(season, number) {
 }
 
 const searchResults = (allCards) => {
-  const searchInput = document.getElementById("q");
+  const searchInput = document.getElementById("search");
 
   searchInput.addEventListener("input", updateSearchTerm);
 
