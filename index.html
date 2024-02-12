@@ -12,29 +12,36 @@
 <body>
   <div class="filter-box">
     <div>
-      <label for="episodeDropdown">Select Episode:</label>
-      <select id="episodeDropdown"></select>
+      <label for="episode-selector">Select Episode:</label>
+      <select id="episode-selector">
+          <option value="" selected disabled>Select an option</option>
+          <template id="episode-list">
+            <option value=""></option>
+          </template>
+      </select>
+      <button id="all-episodes">Show all episodes</button>
+
     </div>
     <div>
       <label>
         <input type="search" id="search" name="search-field" placeholder="Search term" />
       </label>
     </div>
-    <p id="number-of-filtered-episodes">Displaying all episodes</p>
+    <p id="filter-info">Displaying all episodes</p>
   </div>
-  <div id="root">
-    <template id="show-card">
-      <section class="card-temp">
-        <section id="card-header">
-          <a id="show-title" href="" target="_blank"></a>
-          <div id="show-episode"></div>
-        </section>
-        <section id="card-body">
-          <img />
-          <div id="show-summary"></div>
-        </section>
+  <template id="episode-card">
+    <section class="card-temp">
+      <section id="card-header">
+        <a id="episode-title" href="" target="_blank"></a>
+        <div id="episode-code"></div>
       </section>
-    </template>
+      <section id="card-body">
+        <img id="episode-img"/>
+        <div id="episode-summary"></div>
+      </section>
+    </section>
+  </template>  
+  <div id="root">
   </div>
 
   <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
