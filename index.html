@@ -10,6 +10,18 @@
 </head>
 
 <body>
+  <div class="filter-box">
+    <div>
+      <label for="episodeDropdown">Select Episode:</label>
+      <select id="episodeDropdown"></select>
+    </div>
+    <div>
+      <label>
+        <input type="search" id="search" name="search-field" placeholder="Search term" />
+      </label>
+    </div>
+    <p id="number-of-filtered-episodes">Displaying all episodes</p>
+  </div>
   <div id="root">
     <template id="show-card">
       <section class="card-temp">
