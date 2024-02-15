@@ -3,7 +3,7 @@
   grid-template-columns: repeat(3, 1fr);
 }
 
-.filter-box{
+.filter-box {
   display: flex;
   align-items: center;
   gap: 2rem;
@@ -19,24 +19,21 @@
   align-items: center;
 }
 
-
 #card-header {
   font-size: xx-large;
   font-family: monospace;
   margin-bottom: 1rem;
   background-color: #cdfeaa;
-
 }
 
 #show-episode {
-  font-size: large
+  font-size: large;
 }
 
 #card-body {
   display: flex;
   flex-direction: column;
   align-items: center;
-
 }
 
 a {
@@ -51,14 +48,15 @@ a:hover {
 }
 
 footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  text-align: center;
+  padding: 10px;
+  background-color: #f4f4f4;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
   background-color: #cdfeaa;
-  padding: 1rem;
   font-style: oblique;
   font-size: large;
-
 }
 
 #q {
