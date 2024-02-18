@@ -12,12 +12,19 @@
 <body>
   <div class="filter-box">
     <div>
+      <label for="show-selector">Select Show:</label>
+      <select id="show-selector">
+        <option value="" selected disabled>Select an option</option>
+        <template id="show-list">
+          <option value=""></option>
+        </template>
+      </select>
       <label for="episode-selector">Select Episode:</label>
       <select id="episode-selector">
-          <option value="" selected disabled>Select an option</option>
-          <template id="episode-list">
-            <option value=""></option>
-          </template>
+        <option value="" selected disabled>Select an option</option>
+        <template id="episode-list">
+          <option value=""></option>
+        </template>
       </select>
       <button id="all-episodes">Show all episodes</button>
 
@@ -36,12 +43,12 @@
         <div id="episode-code"></div>
       </section>
       <section id="card-body">
-        <img id="episode-img"/>
+        <img id="episode-img" />
         <div id="episode-summary"></div>
       </section>
     </section>
-  </template> 
-  <h2 id="fetching-info">Fetching episodes...</h2> 
+  </template>
+  <h2 id="fetching-info">Fetching episodes...</h2>
   <div id="root">
   </div>
 
