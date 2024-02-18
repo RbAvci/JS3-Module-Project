@@ -64,19 +64,6 @@ setTimeout(function timeout() {
     });
 }, 3000);
 
-function fillShowList() {
-  let showsDropdown = document.getElementById("show-selector");
-  const shows = state.shows;
-  for (const show of shows) {
-    const showListItem = createShowListItem(show);
-    showsDropdown.append(showListItem);
-    if (show.id == state.selectedShowId) {
-      showsDropdown.value = show.id;
-    }
-  }
-  fillEpisodeList();
-}
-
 const showSelector = document.getElementById("show-selector");
 showSelector.addEventListener("change", handleShowSelection);
 
@@ -128,6 +115,25 @@ function handleSearchInput(event) {
 const episodeSelector = document.getElementById("episode-selector");
 episodeSelector.addEventListener("change", handleSelect);
 
+function fillShowList() {
+  const shows = state.shows;
+  for (const show of shows) {
+    const showListItem = createShowListItem(show);
+    showSelector.append(showListItem);
+    if (show.id == state.selectedShowId) {
+      showSelector.value = show.id;
+    }
+  }
+}
+
+function fillEpisodeList() {
+  const episodes = state.episodes;
+  for (e of episodes) {
+    const episodeListItem = createEpisodeListItem(e);
+    episodeSelector.append(episodeListItem);
+  }
+}
+
 function handleSelect(event) {
   state.selectedEpisodeId = event.target.value;
   console.log(state.selectedEpisodeId);
@@ -145,16 +151,6 @@ function createEpisodeListItem(episode) {
   option.setAttribute("value", episode.id);
 
   return episodeListItem;
-}
-
-function fillEpisodeList() {
-  let episodeDropdown = document.getElementById("episode-selector");
-  const episodes = state.episodes;
-  for (e of episodes) {
-    const episodeListItem = createEpisodeListItem(e);
-    episodeDropdown.append(episodeListItem);
-  }
-
 }
 
 function renderByEpisodeSelection() {
