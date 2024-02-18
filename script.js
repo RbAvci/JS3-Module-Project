@@ -64,24 +64,6 @@ setTimeout(function timeout() {
     });
 }, 3000);
 
-const showSelector = document.getElementById("show-selector");
-showSelector.addEventListener("change", handleShowSelection);
-
-function handleShowSelection(event) {
-  state.selectedShowId = event.target.value;
-  fetchEpisodes();
-}
-
-function createShowListItem(show) {
-  const showListItem = document
-    .getElementById("show-list")
-    .content.cloneNode(true);
-  const option = showListItem.querySelector("option");
-  option.textContent = show.name;
-  option.setAttribute("value", show.id);
-  return showListItem;
-}
-
 function createEpisodeCard(episode) {
   const card = document.getElementById("episode-card").content.cloneNode(true);
   const title = card.querySelector("#episode-title");
@@ -112,32 +94,14 @@ function handleSearchInput(event) {
   renderBySearch();
 }
 
-const episodeSelector = document.getElementById("episode-selector");
-episodeSelector.addEventListener("change", handleSelect);
-
-function fillShowList() {
-  const shows = state.shows;
-  for (const show of shows) {
-    const showListItem = createShowListItem(show);
-    showSelector.append(showListItem);
-    if (show.id == state.selectedShowId) {
-      showSelector.value = show.id;
-    }
-  }
-}
-
-function fillEpisodeList() {
-  const episodes = state.episodes;
-  for (e of episodes) {
-    const episodeListItem = createEpisodeListItem(e);
-    episodeSelector.append(episodeListItem);
-  }
-}
-
-function handleSelect(event) {
-  state.selectedEpisodeId = event.target.value;
-  console.log(state.selectedEpisodeId);
-  renderByEpisodeSelection();
+function createShowListItem(show) {
+  const showListItem = document
+    .getElementById("show-list")
+    .content.cloneNode(true);
+  const option = showListItem.querySelector("option");
+  option.textContent = show.name;
+  option.setAttribute("value", show.id);
+  return showListItem;
 }
 
 function createEpisodeListItem(episode) {
@@ -151,6 +115,48 @@ function createEpisodeListItem(episode) {
   option.setAttribute("value", episode.id);
 
   return episodeListItem;
+}
+
+function fillShowList() {
+  const shows = state.shows;
+  for (const show of shows) {
+    const showListItem = createShowListItem(show);
+    showSelector.append(showListItem);
+    if (show.id == state.selectedShowId) {
+      showSelector.value = show.id;
+    }
+  }
+}
+
+function fillEpisodeList() {
+    episodeSelector.textContent = "";
+    const defaultOption = document.createElement("option");
+    defaultOption.selected = true;
+    defaultOption.disabled = true;
+    defaultOption.innerHTML = "Select an option";
+    document.getElementById("episode-selector").append(defaultOption);
+  const episodes = state.episodes;
+  for (e of episodes) {
+    const episodeListItem = createEpisodeListItem(e);
+    episodeSelector.append(episodeListItem);
+  }
+}
+
+const showSelector = document.getElementById("show-selector");
+showSelector.addEventListener("change", handleShowSelection);
+
+function handleShowSelection(event) {
+  state.selectedShowId = event.target.value;
+  fetchEpisodes();
+}
+
+const episodeSelector = document.getElementById("episode-selector");
+episodeSelector.addEventListener("change", handleEpisodeSelection);
+
+function handleEpisodeSelection(event) {
+  state.selectedEpisodeId = event.target.value;
+  console.log(state.selectedEpisodeId);
+  renderByEpisodeSelection();
 }
 
 function renderByEpisodeSelection() {
@@ -168,10 +174,8 @@ function renderBySearch() {
 function filterBySearch(episode) {
   const lowercaseName = episode.name.toLowerCase();
   const lowercaseSummary = episode.summary.toLowerCase();
-  return (
-    lowercaseName.includes(state.searchTerm.toLowerCase()) ||
-    lowercaseSummary.includes(state.searchTerm.toLowerCase())
-  );
+  return lowercaseName.includes(state.searchTerm.toLowerCase()) ||
+    lowercaseSummary.includes(state.searchTerm.toLowerCase());
 }
 
 function renderByFilter(filterFunction) {
@@ -182,7 +186,7 @@ function renderByFilter(filterFunction) {
   const episodeCards = filteredEpisodes.map(createEpisodeCard);
   rootElem.append(...episodeCards);
 
-  console.log(`${state.episodes} => before filter` );
+  console.log(`${state.episodes} => before filter`);
   console.log(`${filteredEpisodes} => After filter`);
   document.getElementById(
     "filter-info"
