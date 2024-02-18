@@ -65,12 +65,13 @@ setTimeout(function timeout() {
 }, 3000);
 
 function fillShowList() {
+  let showsDropdown = document.getElementById("show-selector");
   const shows = state.shows;
   for (const show of shows) {
     const showListItem = createShowListItem(show);
-    document.getElementById("show-selector").append(showListItem);
+    showsDropdown.append(showListItem);
     if (show.id == state.selectedShowId) {
-      document.getElementById("show-selector").value = show.id;
+      showsDropdown.value = show.id;
     }
   }
   fillEpisodeList();
@@ -147,10 +148,11 @@ function createEpisodeListItem(episode) {
 }
 
 function fillEpisodeList() {
+  let episodeDropdown = document.getElementById("episode-selector");
   const episodes = state.episodes;
   for (e of episodes) {
     const episodeListItem = createEpisodeListItem(e);
-    document.getElementById("episode-selector").append(episodeListItem);
+    episodeDropdown.append(episodeListItem);
   }
 
 }
