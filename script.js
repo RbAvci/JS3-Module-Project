@@ -117,7 +117,7 @@ function createEpisodeListItem(episode) {
   return episodeListItem;
 }
 
-function fillShowList() {
+function populateShowSelector() {
   const shows = state.shows;
   for (const show of shows) {
     const showListItem = createShowListItem(show);
@@ -128,7 +128,7 @@ function fillShowList() {
   }
 }
 
-function fillEpisodeList() {
+function populateEpisodeSelector() {
     episodeSelector.textContent = "";
     const defaultOption = document.createElement("option");
     defaultOption.selected = true;
@@ -196,8 +196,8 @@ function renderByFilter(filterFunction) {
 document.getElementById("all-episodes").addEventListener("click", render);
 
 function render() {
-  fillShowList();
-  fillEpisodeList();
+  populateShowSelector();
+  populateEpisodeSelector();
   renderByEpisodeSelection();
   renderBySearch();
 }
