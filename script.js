@@ -136,8 +136,8 @@ function populateEpisodeSelector() {
     defaultOption.innerHTML = "Select an option";
     document.getElementById("episode-selector").append(defaultOption);
   const episodes = state.episodes;
-  for (e of episodes) {
-    const episodeListItem = createEpisodeListItem(e);
+  for (episode of episodes) {
+    const episodeListItem = createEpisodeListItem(episode);
     episodeSelector.append(episodeListItem);
   }
 }
@@ -155,7 +155,6 @@ episodeSelector.addEventListener("change", handleEpisodeSelection);
 
 function handleEpisodeSelection(event) {
   state.selectedEpisodeId = event.target.value;
-  console.log(state.selectedEpisodeId);
   renderByEpisodeSelection();
 }
 
@@ -185,9 +184,6 @@ function renderByFilter(filterFunction) {
   const filteredEpisodes = state.episodes.filter(filterFunction);
   const episodeCards = filteredEpisodes.map(createEpisodeCard);
   rootElem.append(...episodeCards);
-
-  console.log(`${state.episodes} => before filter`);
-  console.log(`${filteredEpisodes} => After filter`);
   document.getElementById(
     "filter-info"
   ).textContent = `Displaying ${filteredEpisodes.length}/${state.episodes.length} episodes`;
