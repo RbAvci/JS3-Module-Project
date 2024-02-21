@@ -51,19 +51,6 @@ async function fetchEpisodes() {
     });
 }
 
-setTimeout(function timeout() {
-  fetchEpisodes()
-    .then(function (episodeData) {
-      state.episodes = episodeData;
-      document.getElementById("fetching-info").style.display = "none";
-      render();
-    })
-    .catch((error) => {
-      console.log(error);
-      document.getElementById("fetching-info").textContent = error;
-    });
-}, 3000);
-
 function createEpisodeCard(episode) {
   const card = document.getElementById("episode-card").content.cloneNode(true);
   const title = card.querySelector("#episode-title");
