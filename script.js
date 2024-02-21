@@ -2,6 +2,7 @@ const state = {
   shows: [],
   selectedShowId: "",
   episodes: [],
+  showEpisodes: new Map(),
   searchTerm: "",
   selectedEpisodeId: "",
 };
@@ -32,23 +33,26 @@ async function fetchAllShows() {
 
 async function fetchEpisodes() {
   const showId = state.selectedShowId;
-  return await fetch(`https://api.tvmaze.com/shows/${showId}/episodes`)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Failed to fetch episodes");
-      }
-      return response.json();
-    })
-    .then((data) => {
-      state.episodes = data;
-      render();
-      console.log(data);
-      return data;
-    })
-    .catch((error) => {
-      console.error(error);
-      throw error;
-    });
+  if (!state.showEpisodes.has(showId)) {
+    await fetch(`https://api.tvmaze.com/shows/${showId}/episodes`)
+      .then((response) => {
+        // TODO 
+        if (!response.ok) {
+          throw new Error("Failed to fetch episodes");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        state.showEpisodes.set(showId, data);
+      })
+      .catch((error) => {
+        // TODO
+        console.error(error);
+        throw error;
+      });
+  }
+  state.episodes = state.showEpisodes.get(showId);
+  render();
 }
 
 function createEpisodeCard(episode) {
