@@ -3,6 +3,10 @@
   grid-template-columns: repeat(3, 1fr);
 }
 
+#episodes-view {
+  display: none;
+}
+
 .filter-box {
   display: flex;
   align-items: center;

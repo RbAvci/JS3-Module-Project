@@ -10,7 +10,29 @@
 </head>
 
 <body>
-  <div class="filter-box">
+  <div id="shows-viev">
+    <template id="show-card">
+      <section class="show-temp">
+        <a id="show-title" href="" target="_blank"></a>
+        <section class="show-body">
+          <img id="show-img" />
+          <div id="show-summary"></div>
+          <div class="show-details">
+            <p class="show-detail-heading"><span class="show-detail-value" id="show-rating"></span></p>
+            <p class="show-detail-heading"><span class="show-detail-value" id="show-genres"></span></p>
+            <p class="show-detail-heading"><span class="show-detail-value" id="show-status"></span></p>
+            <p class="show-detail-heading"><span class="show-detail-value" id="show-runtime"></span></p>
+          </div>
+        </section>
+      </section>
+    </template>
+    <div id="shows-root">
+    </div>
+
+  </div>
+
+  <div id="episodes-view">
+    <div class="filter-box">
     <div>
       <label for="show-selector">Select Show:</label>
       <select id="show-selector">
@@ -35,20 +57,22 @@
       </label>
     </div>
     <p id="filter-info">Displaying all episodes</p>
-  </div>
-  <template id="episode-card">
-    <section class="card-temp">
-      <section id="card-header">
-        <a id="episode-title" href="" target="_blank"></a>
-        <div id="episode-code"></div>
+    </div>
+
+    <template id="episode-card">
+      <section class="card-temp">
+        <section id="card-header">
+          <a id="episode-title" href="" target="_blank"></a>
+          <div id="episode-code"></div>
+        </section>
+        <section id="card-body">
+          <img id="episode-img" />
+          <div id="episode-summary"></div>
+        </section>
       </section>
-      <section id="card-body">
-        <img id="episode-img" />
-        <div id="episode-summary"></div>
-      </section>
-    </section>
-  </template>
-  <div id="root">
+    </template>
+    <div id="root">
+    </div>
   </div>
   <footer>The data in this website (originally) come from <a href="https://tvmaze.com/" target="_blank">TVMaze.com</a>
   </footer>
