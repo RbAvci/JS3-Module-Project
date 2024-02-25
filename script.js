@@ -20,10 +20,9 @@ async function fetchAllShows() {
       state.shows.sort(function (a, b) {
         return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
       });
-      state.selectedShowId = state.shows[0].id;
+      // state.selectedShowId = state.shows[0].id;
       // fetchEpisodes();
-      render();
-      return data;
+      renderShowView();
     })
     .catch((error) => {
       console.error(error);
@@ -191,11 +190,36 @@ function render() {
 }
 
 function renderShowView(){
- state.selectedShowId= "";
- renderByFilter(filterBySearch);
 
+   const rootElem = document.getElementById("shows-root");
+   rootElem.innerHTML = "";
+
+  //  const filteredEpisodes = state.episodes.filter(filterFunction);
+  const filteredShows = state.shows;
+   const showCards = filteredShows.map(createShowCard);
+   rootElem.append(...showCards);
+  //  document.getElementById(
+  //    "filter-info"
+  //  ).textContent = `Displaying ${filteredEpisodes.length}/${state.episodes.length} episodes`;
 
 }
+
+function createShowCard(show) {
+  const card = document.getElementById("show-card").content.cloneNode(true);
+  const title = card.querySelector("#show-title");
+  title.textContent = show.name;
+  title.setAttribute("href", show.url);
+  const image = show.image ?? "";
+  card.querySelector("#show-img").src = image.medium;
+  card.querySelector("#show-summary").innerHTML =
+    show.summary ?? "Summary not available";
+  card.querySelector("#show-rating").innerHTML = show.rating.average;
+  card.querySelector("#show-genres").innerHTML = show.genres.join(", ");
+  card.querySelector("#show-status").innerHTML = show.status;
+  card.querySelector("#show-runtime").innerHTML = show.runtime;
+  return card;
+}
+
 
  function renderEpisodesView() {
    populateShowSelector();
