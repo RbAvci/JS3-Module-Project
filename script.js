@@ -21,7 +21,7 @@ async function fetchAllShows() {
         return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
       });
       state.selectedShowId = state.shows[0].id;
-      fetchEpisodes();
+      // fetchEpisodes();
       render();
       return data;
     })
@@ -64,8 +64,10 @@ function createEpisodeCard(episode) {
     episode.season,
     episode.number
   );
-  card.querySelector("#episode-img").src = episode.image.medium;
-  card.querySelector("#episode-summary").innerHTML = episode.summary;
+  const image = episode.image ?? "";
+  card.querySelector("#episode-img").src = image.medium;
+  card.querySelector("#episode-summary").innerHTML =
+    episode.summary ?? "Summary not available";;
   return card;
 }
 
@@ -163,7 +165,8 @@ function renderBySearch() {
 
 function filterBySearch(episode) {
   const lowercaseName = episode.name.toLowerCase();
-  const lowercaseSummary = episode.summary.toLowerCase();
+  const summary = episode.summary ?? "";
+  const lowercaseSummary = summary.toLowerCase();
   return lowercaseName.includes(state.searchTerm.toLowerCase()) ||
     lowercaseSummary.includes(state.searchTerm.toLowerCase());
 }
@@ -183,10 +186,22 @@ function renderByFilter(filterFunction) {
 document.getElementById("all-episodes").addEventListener("click", render);
 
 function render() {
-  populateShowSelector();
-  populateEpisodeSelector();
-  renderByEpisodeSelection();
-  renderBySearch();
+  renderShowView();
+  renderEpisodesView()
 }
+
+function renderShowView(){
+ state.selectedShowId= "";
+ renderByFilter(filterBySearch);
+
+
+}
+
+ function renderEpisodesView() {
+   populateShowSelector();
+   populateEpisodeSelector();
+   renderByEpisodeSelection();
+   renderBySearch();
+ }
 
 fetchAllShows();
