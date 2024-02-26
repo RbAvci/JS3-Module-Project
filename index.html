@@ -10,18 +10,41 @@
 </head>
 
 <body>
-  <div id="shows-viev">
+  <div id="shows-view">
+
+    <div class="filter-box">
+    <div>
+      <label for="showView-selector">Select Show:</label>
+      <select id="showView-selector">
+        <option value="" selected disabled>Select an option</option>
+        <template id="showView-list">
+          <option value=""></option>
+        </template>
+      </select>
+      <button id="all-shows-view">All Shows</button>
+
+    </div>
+    <div>
+      <label>
+        <input type="search" id="showView-search" name="search-field" placeholder="Search term" />
+      </label>
+    </div>
+    <p id="showView-filter-info">Displaying all shows</p>
+    </div>
+
+
+
     <template id="show-card">
       <section class="show-temp">
-        <a id="show-title" href="" target="_blank"></a>
+        <h2 id="show-title"></h2>
         <section class="show-body">
           <img id="show-img" />
           <div id="show-summary"></div>
           <div class="show-details">
-            <p class="show-detail-heading"><span class="show-detail-value" id="show-rating"></span></p>
-            <p class="show-detail-heading"><span class="show-detail-value" id="show-genres"></span></p>
-            <p class="show-detail-heading"><span class="show-detail-value" id="show-status"></span></p>
-            <p class="show-detail-heading"><span class="show-detail-value" id="show-runtime"></span></p>
+            <p class="show-detail-heading">Rating: <span class="show-detail-value" id="show-rating"></span></p>
+            <p class="show-detail-heading">Genres: <span class="show-detail-value" id="show-genres"></span></p>
+            <p class="show-detail-heading">Status: <span class="show-detail-value" id="show-status"></span></p>
+            <p class="show-detail-heading">Runtime: <span class="show-detail-value" id="show-runtime"></span></p>
           </div>
         </section>
       </section>
@@ -33,6 +56,8 @@
 
   <div id="episodes-view">
     <div class="filter-box">
+      <button id="back-to-shows">Back to Shows</button>
+
     <div>
       <label for="show-selector">Select Show:</label>
       <select id="show-selector">

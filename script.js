@@ -4,6 +4,7 @@ const state = {
   episodes: [],
   showEpisodes: new Map(),
   searchTerm: "",
+  searchViewTerm: "",
   selectedEpisodeId: "",
 };
 
@@ -20,8 +21,6 @@ async function fetchAllShows() {
       state.shows.sort(function (a, b) {
         return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
       });
-      // state.selectedShowId = state.shows[0].id;
-      // fetchEpisodes();
       renderShowView();
     })
     .catch((error) => {
@@ -35,7 +34,7 @@ async function fetchEpisodes() {
   if (!state.showEpisodes.has(showId)) {
     await fetch(`https://api.tvmaze.com/shows/${showId}/episodes`)
       .then((response) => {
-        // TODO 
+        // TODO
         if (!response.ok) {
           throw new Error("Failed to fetch episodes");
         }
@@ -66,7 +65,7 @@ function createEpisodeCard(episode) {
   const image = episode.image ?? "";
   card.querySelector("#episode-img").src = image.medium;
   card.querySelector("#episode-summary").innerHTML =
-    episode.summary ?? "Summary not available";;
+    episode.summary ?? "Summary not available";
   return card;
 }
 
@@ -109,29 +108,40 @@ function createEpisodeListItem(episode) {
   return episodeListItem;
 }
 
-function populateShowSelector() {
+function populateShowSelector(selector) {
   const shows = state.shows;
   for (const show of shows) {
     const showListItem = createShowListItem(show);
-    showSelector.append(showListItem);
+    selector.append(showListItem);
     if (show.id == state.selectedShowId) {
-      showSelector.value = show.id;
+      selector.value = show.id;
     }
   }
 }
 
 function populateEpisodeSelector() {
-    episodeSelector.textContent = "";
-    const defaultOption = document.createElement("option");
-    defaultOption.selected = true;
-    defaultOption.disabled = true;
-    defaultOption.innerHTML = "Select an option";
-    document.getElementById("episode-selector").append(defaultOption);
+  episodeSelector.textContent = "";
+  const defaultOption = document.createElement("option");
+  defaultOption.selected = true;
+  defaultOption.disabled = true;
+  defaultOption.innerHTML = "Select an option";
+  document.getElementById("episode-selector").append(defaultOption);
   const episodes = state.episodes;
   for (episode of episodes) {
     const episodeListItem = createEpisodeListItem(episode);
     episodeSelector.append(episodeListItem);
   }
+}
+
+const backButton = document.getElementById("back-to-shows");
+backButton.addEventListener("click", handleBackButton);
+
+function handleBackButton(event) {
+  document.getElementById("episodes-view").style.display = "none";
+  document.getElementById("shows-view").style.display = "block";
+  showViewSelector.selectedIndex = 0;
+  state.selectedShowId = "";
+  renderShowView();
 }
 
 const showSelector = document.getElementById("show-selector");
@@ -166,8 +176,10 @@ function filterBySearch(episode) {
   const lowercaseName = episode.name.toLowerCase();
   const summary = episode.summary ?? "";
   const lowercaseSummary = summary.toLowerCase();
-  return lowercaseName.includes(state.searchTerm.toLowerCase()) ||
-    lowercaseSummary.includes(state.searchTerm.toLowerCase());
+  return (
+    lowercaseName.includes(state.searchTerm.toLowerCase()) ||
+    lowercaseSummary.includes(state.searchTerm.toLowerCase())
+  );
 }
 
 function renderByFilter(filterFunction) {
@@ -186,29 +198,66 @@ document.getElementById("all-episodes").addEventListener("click", render);
 
 function render() {
   renderShowView();
-  renderEpisodesView()
+  renderEpisodesView();
 }
 
-function renderShowView(){
+const showViewSelector = document.getElementById("showView-selector");
+showViewSelector.addEventListener("change", handleShowViewSelection);
 
-   const rootElem = document.getElementById("shows-root");
-   rootElem.innerHTML = "";
+function handleShowViewSelection(event) {
+  displayEpisodesView(event.target.value);
+}
 
-  //  const filteredEpisodes = state.episodes.filter(filterFunction);
-  const filteredShows = state.shows;
-   const showCards = filteredShows.map(createShowCard);
-   rootElem.append(...showCards);
-  //  document.getElementById(
-  //    "filter-info"
-  //  ).textContent = `Displaying ${filteredEpisodes.length}/${state.episodes.length} episodes`;
+function filterByViewSearch(show) {
+  const lowercaseName = show.name.toLowerCase();
+  const summary = show.summary ?? "";
+  const lowercaseSummary = summary.toLowerCase();
+  const lowercaseGenres = show.genres.join().toLowerCase();
 
+  return (
+    lowercaseName.includes(state.searchViewTerm.toLowerCase()) ||
+    lowercaseSummary.includes(state.searchViewTerm.toLowerCase()) ||
+    lowercaseGenres.includes(state.searchViewTerm.toLowerCase())
+  );
+}
+
+const searchViewBox = document.getElementById("showView-search");
+searchViewBox.addEventListener("input", handleShowViewSearchInput);
+
+function handleShowViewSearchInput(event) {
+  state.searchViewTerm = event.target.value;
+  renderShowView();
+}
+
+document
+  .getElementById("all-shows-view")
+  .addEventListener("click", function () {
+    state.searchViewTerm = "";
+    searchViewBox.value = "";
+    renderShowView();
+  });
+
+function renderShowView() {
+  populateShowSelector(showViewSelector);
+  const rootElem = document.getElementById("shows-root");
+  rootElem.innerHTML = "";
+
+  const filteredShows = state.shows.filter(filterByViewSearch);
+  const showCards = filteredShows.map(createShowCard);
+  rootElem.append(...showCards);
+  document.getElementById(
+    "showView-filter-info"
+  ).textContent = `Displaying ${filteredShows.length}/${state.shows.length} shows`;
 }
 
 function createShowCard(show) {
   const card = document.getElementById("show-card").content.cloneNode(true);
   const title = card.querySelector("#show-title");
   title.textContent = show.name;
-  title.setAttribute("href", show.url);
+  title.addEventListener("click", () => {
+    displayEpisodesView(show.id);
+  });
+
   const image = show.image ?? "";
   card.querySelector("#show-img").src = image.medium;
   card.querySelector("#show-summary").innerHTML =
@@ -220,12 +269,18 @@ function createShowCard(show) {
   return card;
 }
 
+function displayEpisodesView(showId) {
+  state.selectedShowId = showId;
+  document.getElementById("shows-view").style.display = "none";
+  document.getElementById("episodes-view").style.display = "block";
+  fetchEpisodes();
+}
 
- function renderEpisodesView() {
-   populateShowSelector();
-   populateEpisodeSelector();
-   renderByEpisodeSelection();
-   renderBySearch();
- }
+function renderEpisodesView() {
+  populateShowSelector(showSelector);
+  populateEpisodeSelector();
+  renderByEpisodeSelection();
+  renderBySearch();
+}
 
 fetchAllShows();
