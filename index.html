@@ -1,109 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TV Show Project | Rabia Avci (RbAvci)</title>
+    <link href="style.css" rel="stylesheet" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TV Show Project | Rabia Avci (RbAvci)</title>
-  <link href="style.css" rel="stylesheet" />
-  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-</head>
+  <body>
+    <div id="shows-view">
+      <div class="show-filter-box">
+        <div>
+          <label for="showView-selector">Select Show:</label>
+          <select id="showView-selector">
+            <option value="" selected disabled>Select an option</option>
+            <template id="showView-list">
+              <option value=""></option>
+            </template>
+          </select>
+          <button id="all-shows-view">All Shows</button>
+        </div>
+        <div>
+          <label>
+            <input
+              type="search"
+              id="showView-search"
+              name="search-field"
+              placeholder="Search term"
+            />
+          </label>
+        </div>
+        <p id="showView-filter-info">Displaying all shows</p>
+      </div>
 
-<body>
-  <div id="shows-view">
-
-    <div class="filter-box">
-    <div>
-      <label for="showView-selector">Select Show:</label>
-      <select id="showView-selector">
-        <option value="" selected disabled>Select an option</option>
-        <template id="showView-list">
-          <option value=""></option>
-        </template>
-      </select>
-      <button id="all-shows-view">All Shows</button>
-
-    </div>
-    <div>
-      <label>
-        <input type="search" id="showView-search" name="search-field" placeholder="Search term" />
-      </label>
-    </div>
-    <p id="showView-filter-info">Displaying all shows</p>
-    </div>
-
-
-
-    <template id="show-card">
-      <section class="show-temp">
-        <h2 id="show-title"></h2>
-        <section class="show-body">
-          <img id="show-img" />
-          <div id="show-summary"></div>
-          <div class="show-details">
-            <p class="show-detail-heading">Rating: <span class="show-detail-value" id="show-rating"></span></p>
-            <p class="show-detail-heading">Genres: <span class="show-detail-value" id="show-genres"></span></p>
-            <p class="show-detail-heading">Status: <span class="show-detail-value" id="show-status"></span></p>
-            <p class="show-detail-heading">Runtime: <span class="show-detail-value" id="show-runtime"></span></p>
-          </div>
+      <template id="show-card">
+        <section class="show-temp">
+          <h2 id="show-title"></h2>
+          <section class="show-body">
+            <img id="show-img" />
+            <div id="show-summary"></div>
+            <div class="show-details">
+              <p class="show-detail-heading">
+                Rating: <span class="show-detail-value" id="show-rating"></span>
+              </p>
+              <p class="show-detail-heading">
+                Genres: <span class="show-detail-value" id="show-genres"></span>
+              </p>
+              <p class="show-detail-heading">
+                Status: <span class="show-detail-value" id="show-status"></span>
+              </p>
+              <p class="show-detail-heading">
+                Runtime:
+                <span class="show-detail-value" id="show-runtime"></span>
+              </p>
+            </div>
+          </section>
         </section>
-      </section>
-    </template>
-    <div id="shows-root">
-    </div>
-
-  </div>
-
-  <div id="episodes-view">
-    <div class="filter-box">
-      <button id="back-to-shows">Back to Shows</button>
-
-    <div>
-      <label for="show-selector">Select Show:</label>
-      <select id="show-selector">
-        <option value="" selected disabled>Select an option</option>
-        <template id="show-list">
-          <option value=""></option>
-        </template>
-      </select>
-      <template id="episode-list">
-        <option value=""></option>
       </template>
-      <label for="episode-selector">Select Episode:</label>
-      <select id="episode-selector">
-        <option value="" selected disabled>Select an option</option>
-      </select>
-      <button id="all-episodes">Show all episodes</button>
-
-    </div>
-    <div>
-      <label>
-        <input type="search" id="search" name="search-field" placeholder="Search term" />
-      </label>
-    </div>
-    <p id="filter-info">Displaying all episodes</p>
+      <div id="shows-root"></div>
     </div>
 
-    <template id="episode-card">
-      <section class="card-temp">
-        <section id="card-header">
-          <a id="episode-title" href="" target="_blank"></a>
-          <div id="episode-code"></div>
+    <div id="episodes-view">
+      <div class="filter-box">
+        <button id="back-to-shows">Back to Shows</button>
+
+        <div>
+          <label for="show-selector">Select Show:</label>
+          <select id="show-selector">
+            <option value="" selected disabled>Select an option</option>
+            <template id="show-list">
+              <option value=""></option>
+            </template>
+          </select>
+          <template id="episode-list">
+            <option value=""></option>
+          </template>
+          <label for="episode-selector">Select Episode:</label>
+          <select id="episode-selector">
+            <option value="" selected disabled>Select an option</option>
+          </select>
+          <button id="all-episodes">Show all episodes</button>
+        </div>
+        <div>
+          <label>
+            <input
+              type="search"
+              id="search"
+              name="search-field"
+              placeholder="Search term"
+            />
+          </label>
+        </div>
+        <p id="filter-info">Displaying all episodes</p>
+      </div>
+
+      <template id="episode-card">
+        <section class="card-temp">
+          <section id="card-header">
+            <a id="episode-title" href="" target="_blank"></a>
+            <div id="episode-code"></div>
+          </section>
+          <section id="card-body">
+            <img id="episode-img" />
+            <div id="episode-summary"></div>
+          </section>
         </section>
-        <section id="card-body">
-          <img id="episode-img" />
-          <div id="episode-summary"></div>
-        </section>
-      </section>
-    </template>
-    <div id="root">
+      </template>
+      <div id="root"></div>
     </div>
-  </div>
-  <footer>The data in this website (originally) come from <a href="https://tvmaze.com/" target="_blank">TVMaze.com</a>
-  </footer>
-  <!-- Loads YOUR javascript code -->
-  <script src="script.js"></script>
-</body>
-
-
+    <footer>
+      <p>
+        The data in this website (originally) come from
+        <a href="https://tvmaze.com/" target="_blank">TVMaze.com</a>
+      </p>
+      <div class="bio-link">
+        <a href="https://www.linkedin.com/in/rabia-avci-5231032b/">© Rabia Avci </a>
+      </div>
+    </footer>
+    <!-- Loads YOUR javascript code -->
+    <script src="script.js"></script>
+  </body>
 </html>
