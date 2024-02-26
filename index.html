@@ -16,9 +16,6 @@
           <label for="showView-selector">Select Show:</label>
           <select id="showView-selector">
             <option value="" selected disabled>Select an option</option>
-            <template id="showView-list">
-              <option value=""></option>
-            </template>
           </select>
           <button id="all-shows-view">All Shows</button>
         </div>
@@ -74,12 +71,12 @@
         <button id="back-to-shows">Back to Shows</button>
 
         <div>
+          <template id="show-list">
+            <option value=""></option>
+          </template>          
           <label for="show-selector">Select Show:</label>
           <select id="show-selector">
             <option value="" selected disabled>Select an option</option>
-            <template id="show-list">
-              <option value=""></option>
-            </template>
           </select>
           <template id="episode-list">
             <option value=""></option>

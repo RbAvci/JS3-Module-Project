@@ -109,6 +109,12 @@ function createEpisodeListItem(episode) {
 }
 
 function populateShowSelector(selector) {
+  selector.textContent= "";
+  const defaultOption = document.createElement("option");
+  defaultOption.selected = true;
+  defaultOption.disabled = true;
+  defaultOption.innerHTML = "Select an option";
+  selector.append(defaultOption);
   const shows = state.shows;
   for (const show of shows) {
     const showListItem = createShowListItem(show);
